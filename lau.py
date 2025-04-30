@@ -17,3 +17,9 @@ def vali_monto(monto):
         return valor > 0
     except ValueError:
         return False
+
+def convrti(monto, origen, destino):
+    if origen == destino:
+        return monto
+    tasa = tas_cambio[origen][destino]
+    return monto * tasa
