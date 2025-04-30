@@ -23,3 +23,9 @@ def convrti(monto, origen, destino):
         return monto
     tasa = tas_cambio[origen][destino]
     return monto * tasa
+  
+def se_guarda_historial(monto, origen, destino, resultado):
+    fecha_hora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    linea = f"{fecha_hora} - {monto} {origen} → {resultado:.2f} {destino}\n"
+    with open("historial.txt", "a") as archivo:
+        archivo.write(linea)
