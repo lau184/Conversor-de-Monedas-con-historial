@@ -29,3 +29,37 @@ def se_guarda_historial(monto, origen, destino, resultado):
     linea = f"{fecha_hora} - {monto} {origen} → {resultado:.2f} {destino}\n"
     with open("historial.txt", "a") as archivo:
         archivo.write(linea)
+
+def istorial():
+    try:
+        with open("historial.txt", "r") as archivo:
+            print("\n--- Historial de conversiones ---")
+            print(archivo.read())
+    except FileNotFoundError:
+        print("Todavía no hay historial guardado.")
+
+def menu():
+    while True:
+        print("\nConversor de Monedas")
+        print("1 Convertir monedas")
+        print("2 Ver historial")
+        print("3 Borrar historial")
+        print("4 Salir")
+        opcion = input("Elegí una opción (1-4): ")
+
+        if opcion == "1":
+    origen = input("Moneda de origen (USD, EUR, ARS, BRL): ").upper()
+    destino = input("Moneda de destino (USD, EUR, ARS, BRL): ").upper()
+    monto = input("Monto a convertir: ")
+
+    if origen not in monedas or destino not in monedas:
+        print("Tenés que elegir monedas válidas.")
+    elif not monto.replace(".", "", 1).isdigit() or float(monto) <= 0:
+        print("El monto debe ser un número positivo.")
+    else:
+        monto = float(monto)
+        resultado = convertir(monto, origen, destino)
+        print(f"Resultado: {resultado:.2f} {destino}")
+        guardar_en_historial(monto, origen, destino, resultado)
+
+  menu()
